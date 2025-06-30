@@ -1,0 +1,16 @@
+shop:
+  image: openjdk:11-jre
+  depends_on:
+    mysql:
+      condition: service_healthy
+  volumes:
+    - ./artifacts:/app
+  working_dir: /app
+  environment:
+    SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/app?useSSL=false&allowPublicKeyRetrieval=true
+    SPRING_DATASOURCE_USERNAME: app
+    SPRING_DATASOURCE_PASSWORD: pass
+    SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+  command: java -jar aqa-shop.jar
+  ports:
+    - "8080:8080"
