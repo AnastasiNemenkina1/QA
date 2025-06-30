@@ -6,7 +6,7 @@
 Для покупки тура есть два способа: с помощью карты и в кредит. В приложении используются два отдельных сервиса оплаты: Payment Gate и Credit Gate.
 
 # Документы
-1. Дипломное задание [https://github.com/netology-code/qa-diploma](https://github.com/netology-code/qa-diploma)
+1.  [Дипломное задание](https://github.com/netology-code/qa-diploma)
 2. План автоматизации
 3. Отчет по итогам тестирования
 4. Отчет по итогам автоматизации
