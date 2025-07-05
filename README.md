@@ -33,19 +33,30 @@
      ```bash
      java -jar artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/app
      ```
-7. Получить отчёт после полного завершения тестов в браузере командой:
+     
+   - Для запуска с подключением к MySQL:
+      ```bash
+    .\gradlew clean test -DdbUrl=jdbc:mysql://localhost:3306/app
+      ```
+      
+   - Для запуска с подключением к PostgreSQL:
+      ```bash
+      .\gradlew clean test -DdbUrl=jdbc:postgresql://localhost:5432/app
+      ```
+      
+3. Получить отчёт после полного завершения тестов в браузере командой:
    ```bash
    .\gradlew allureServe
    ```
 
-8. Закрыть отчёт командой:
+4. Закрыть отчёт командой:
    - Нажать `Ctrl + C`
    - Подтвердить выход, нажав `Y`
 
-9. Закрыть приложение командой:
+5. Закрыть приложение командой:
    - Нажать `CTRL + C` в первой вкладке Terminal
 
-10. После остановки приложения остановить контейнеры командой:
+6. После остановки приложения остановить контейнеры командой:
     ```bash
     docker-compose down
     ```
