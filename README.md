@@ -37,12 +37,12 @@
 3. Во второй вкладке терминала запустите тесты:
    - **Для MySQL**:
      ```bash
-     ./gradlew clean test -Ddblr1=jdbc:mysql://localhost:3306/app
+     gradlew clean test -Ddblr1=jdbc:mysql://localhost:3306/app
      ```
      
    - **Для PostgreSQL**:
      ```bash
-     ./gradlew clean test -Ddblr1=jdbc:postgresql://localhost:5432/app
+     gradlew clean test -Ddblr1=jdbc:postgresql://localhost:5432/app
      ```
      
 4. Получить отчёт после полного завершения тестов в браузере командой:
