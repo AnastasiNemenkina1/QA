@@ -33,11 +33,11 @@ public class CreditPage {
     }
 
     public void fillForm(DataHelper.CardInfo cardInfo) {
-        cardNumberField.setValue(cardInfo.getNumberCard());
+        cardNumberField.setValue(cardInfo.getNumber());  // Исправлено с getNumberCard() на getNumber()
         monthField.setValue(cardInfo.getMonth());
         yearField.setValue(cardInfo.getYear());
-        holderField.setValue(cardInfo.getValidHolder());
-        cvvField.setValue(cardInfo.getValidCVV());
+        holderField.setValue(cardInfo.getHolder());
+        cvvField.setValue(cardInfo.getCvv());
         continueButton.click();
     }
 

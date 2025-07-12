@@ -1,27 +1,34 @@
 package ru.netology.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.data.DataHelper;
 
-import static com.codeborne.selenide.Condition.visible;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-
 public class MainPage {
-    private SelenideElement heading = $x("//h2[text()='Путешествие дня']");
-    private SelenideElement buyButton = $x("//span[text()='Купить']");
-    private SelenideElement creditButton = $x("//span[text()='Купить в кредит']");
+    private final SelenideElement heading = $x("//h2[contains(text(), 'Путешествие дня')]");
+    private final SelenideElement buyButton = $x("//span[contains(text(), 'Купить')]/ancestor::button");
+    private final SelenideElement creditButton = $x("//span[contains(text(), 'Купить в кредит')]/ancestor::button");
 
     public MainPage() {
-        heading.shouldBe(visible);
+        heading.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public DebitPage goToDebitPage() {
-        buyButton.click();
+        buyButton
+                .shouldBe(enabled, Duration.ofSeconds(10))
+                .click();
         return new DebitPage();
     }
 
     public CreditPage goToCreditPage() {
-        creditButton.click();
+        creditButton
+                .shouldBe(enabled, Duration.ofSeconds(10))
+                .click();
         return new CreditPage();
     }
 }

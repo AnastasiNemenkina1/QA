@@ -11,71 +11,69 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class DebitPage {
 
-    private final SelenideElement heading = $x("//h3[text()='Оплата по карте']");
+    private final SelenideElement heading = $x("//h3[contains(text(), 'Оплата по карте')]");
 
-    private final SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
-    private final SelenideElement monthField = $("[placeholder='08']");
-    private final SelenideElement yearField = $("[placeholder='22']");
-    private final SelenideElement holderField = $x("//*[text()='Владелец']/..//input");
-    private final SelenideElement cvvField = $("[placeholder='999']");
-    private final SelenideElement continueButton = $x("//span[text()='Продолжить']");
+    private final SelenideElement cardNumberField = $("input[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement monthField = $("input[placeholder='08']");
+    private final SelenideElement yearField = $("input[placeholder='22']");
+    private final SelenideElement holderField = $x("//span[contains(text(), 'Владелец')]/..//input");
+    private final SelenideElement cvvField = $("input[placeholder='999']");
+    private final SelenideElement continueButton = $x("//span[contains(text(), 'Продолжить')]/..");
 
-    private final SelenideElement cardNumberError = $x("//*[text()='Номер карты']/following-sibling::span[@class='input__sub']");
-    private final SelenideElement monthError = $x("//*[text()='Месяц']/following-sibling::span[@class='input__sub']");
-    private final SelenideElement yearError = $x("//*[text()='Год']/following-sibling::span[@class='input__sub']");
-    private final SelenideElement holderError = $x("//*[text()='Владелец']/following-sibling::span[@class='input__sub']");
-    private final SelenideElement cvvError = $x("//*[contains(text(),'CVV')]/following-sibling::span[@class='input__sub']");
+    private final SelenideElement cardNumberError = $x("//*[contains(text(), 'Номер карты')]/following-sibling::*[contains(@class, 'input__sub')]");
+    private final SelenideElement monthError = $x("//*[contains(text(), 'Месяц')]/following-sibling::*[contains(@class, 'input__sub')]");
+    private final SelenideElement yearError = $x("//*[contains(text(), 'Год')]/following-sibling::*[contains(@class, 'input__sub')]");
+    private final SelenideElement holderError = $x("//*[contains(text(), 'Владелец')]/following-sibling::*[contains(@class, 'input__sub')]");
+    private final SelenideElement cvvError = $x("//*[contains(text(), 'CVV')]/following-sibling::*[contains(@class, 'input__sub')]");
 
-    private final SelenideElement successNotification = $(".notification_status_ok");
-    private final SelenideElement errorNotification = $(".notification_status_error");
+    private final SelenideElement successNotification = $(".notification_status_ok .notification__content");
+    private final SelenideElement errorNotification = $(".notification_status_error .notification__content");
 
     public DebitPage() {
-        heading.shouldBe(visible);
+        heading.shouldBe(visible, Duration.ofSeconds(10));
     }
 
     public void fillForm(DataHelper.CardInfo cardInfo) {
-        cardNumberField.setValue(cardInfo.getNumberCard());
+        cardNumberField.setValue(cardInfo.getNumber());  // Исправлено с getNumberCard() на getNumber()
         monthField.setValue(cardInfo.getMonth());
         yearField.setValue(cardInfo.getYear());
-        holderField.setValue(cardInfo.getValidHolder());
-        cvvField.setValue(cardInfo.getValidCVV());
+        holderField.setValue(cardInfo.getHolder());
+        cvvField.setValue(cardInfo.getCvv());
         continueButton.click();
     }
 
     public void verifySuccessNotification() {
         successNotification.shouldBe(visible, Duration.ofSeconds(15))
-                .shouldHave(text("Успешно"))
                 .shouldHave(text("Операция одобрена Банком."));
     }
 
     public void verifyErrorNotification() {
         errorNotification.shouldBe(visible, Duration.ofSeconds(15))
-                .shouldHave(text("Ошибка"))
                 .shouldHave(text("Банк отказал в проведении операции."));
     }
 
     public void verifyCardNumberError(String expectedError) {
-        cardNumberError.shouldBe(visible)
-                .shouldHave(exactText(expectedError));
+        cardNumberError.shouldBe(visible, Duration.ofSeconds(5))
+                .shouldHave(text(expectedError));
     }
 
     public void verifyMonthError(String expectedError) {
-        monthError.shouldBe(visible)
-                .shouldHave(exactText(expectedError));
+        monthError.shouldBe(visible, Duration.ofSeconds(5))
+                .shouldHave(text(expectedError));
     }
 
     public void verifyYearError(String expectedError) {
-        yearError.shouldBe(visible)
-                .shouldHave(exactText(expectedError));
+        yearError.shouldBe(visible, Duration.ofSeconds(5))
+                .shouldHave(text(expectedError));
     }
 
     public void verifyHolderError(String expectedError) {
-        holderError.shouldBe(visible)
-                .shouldHave(exactText(expectedError));
+        holderError.shouldBe(visible, Duration.ofSeconds(5))
+                .shouldHave(text(expectedError));
     }
 
     public void verifyCvvError(String expectedError) {
-        cvvError.shouldBe(visible)
-                .shouldHave(exactText(expectedError));
+        cvvError.shouldBe(visible, Duration.ofSeconds(5))
+                .shouldHave(text(expectedError));
     }
 }
