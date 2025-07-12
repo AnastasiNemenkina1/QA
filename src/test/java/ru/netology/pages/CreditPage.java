@@ -5,88 +5,74 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CreditPage {
+    private final SelenideElement heading = $x("//h3[text()='Кредит по данным карты']");
 
-    private SelenideElement heading = $x("//h3[text()='Кредит по данным карты']");
-    private SelenideElement cardNumberField = $x("//span[text()='Номер карты']/..//input");
-    private SelenideElement monthField = $x("//span[text()='Месяц']/..//input");
-    private SelenideElement yearField = $x("//span[text()='Год']/..//input");
-    private SelenideElement holderField = $x("//span[text()='Владелец']/..//input");
-    private SelenideElement cvvField = $x("//span[contains(text(),'CVV')]/..//input");
-    private SelenideElement continueButton = $x("//span[text()='Продолжить']");
+    private final SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement monthField = $("[placeholder='08']");
+    private final SelenideElement yearField = $("[placeholder='22']");
+    private final SelenideElement holderField = $x("//*[text()='Владелец']/..//input");
+    private final SelenideElement cvvField = $("[placeholder='999']");
+    private final SelenideElement continueButton = $x("//span[text()='Продолжить']");
 
-    /*всплывающие сообщения*/
-    private SelenideElement successNotification = $x("//div[contains(@class,'notification_status_ok')]");
+    private final SelenideElement cardNumberError = $x("//*[text()='Номер карты']/..//*[@class='input__sub']");
+    private final SelenideElement monthError = $x("//*[text()='Месяц']/..//*[@class='input__sub']");
+    private final SelenideElement yearError = $x("//*[text()='Год']/..//*[@class='input__sub']");
+    private final SelenideElement holderError = $x("//*[text()='Владелец']/..//*[@class='input__sub']");
+    private final SelenideElement cvvError = $x("//*[contains(text(),'CVC/CVV')]/..//*[@class='input__sub']");
 
-    private SelenideElement errorNotification = $x("//div[contains(@class, 'notification_status_error')]");
-
-    private SelenideElement invalidFormat = $x("//span[contains(text(), 'Неверный формат')]");
-
-    private SelenideElement requiredField = $x("//span[contains(text(), 'Поле обязательно')]");
-
-    private SelenideElement incorrectDeadline = $x("//span[contains(text(), 'Неверно указан срок')]");
-
-    private SelenideElement deadlineIsOver = $x("//span[contains(text(), 'Истёк срок')]");
-
-    public void successNotification() {
-        successNotification.shouldBe(visible, Duration.ofSeconds(15)).shouldHave(text("Успешно Операция одобрена Банком."));
-    }
-
-    public void errorNotification() {
-        errorNotification.shouldBe(visible, Duration.ofSeconds(15)).shouldHave(text("Ошибка! Банк отказал в проведении операции."));
-    }
-
-    public void requiredField() {
-        requiredField.shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
-    }
-
-    public void invalidFormat() {
-        invalidFormat.shouldBe(visible).shouldHave(text("Неверный формат"));
-    }
-
-    public void deadlineIsOver() {
-        deadlineIsOver.shouldBe(visible).shouldHave(text("Истёк срок действия карты"));
-    }
-
-    public void incorrectDeadline() {
-        incorrectDeadline.shouldBe(visible).shouldHave(text("Неверно указан срок действия карты"));
-    }
-
-    /*методы для каждого пустого поля*/
-    public void setRequiredFieldForCVVField() {
-        cvvField.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
-    }
-
-    public void setRequiredFieldForNumberCard() {
-        cardNumberField.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
-    }
-
-    public void setRequiredFieldForMonthField() {
-        monthField.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
-    }
-
-    public void setRequiredFieldForYearField() {
-        yearField.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
-    }
-
-    public void setRequiredFieldForHolderField() {
-        holderField.shouldHave(text("Поле обязательно для заполнения")).shouldBe(visible);
-    }
+    private final SelenideElement successNotification = $(".notification_status_ok");
+    private final SelenideElement errorNotification = $(".notification_status_error");
 
     public CreditPage() {
         heading.shouldBe(visible);
     }
 
-    public void fillingOutForm(DataHelper.CardInfo cardInfo) {
+    public void fillForm(DataHelper.CardInfo cardInfo) {
         cardNumberField.setValue(cardInfo.getNumberCard());
         monthField.setValue(cardInfo.getMonth());
         yearField.setValue(cardInfo.getYear());
         holderField.setValue(cardInfo.getValidHolder());
         cvvField.setValue(cardInfo.getValidCVV());
         continueButton.click();
+    }
+
+    public void verifySuccessNotification() {
+        successNotification.shouldBe(visible, Duration.ofSeconds(15))
+                .shouldHave(exactText("Успешно\nОперация одобрена Банком."));
+    }
+
+    public void verifyErrorNotification() {
+        errorNotification.shouldBe(visible, Duration.ofSeconds(15))
+                .shouldHave(exactText("Ошибка\nБанк отказал в проведении операции."));
+    }
+
+    public void verifyCardNumberError(String expectedError) {
+        cardNumberError.shouldBe(visible)
+                .shouldHave(exactText(expectedError));
+    }
+
+    public void verifyMonthError(String expectedError) {
+        monthError.shouldBe(visible)
+                .shouldHave(exactText(expectedError));
+    }
+
+    public void verifyYearError(String expectedError) {
+        yearError.shouldBe(visible)
+                .shouldHave(exactText(expectedError));
+    }
+
+    public void verifyHolderError(String expectedError) {
+        holderError.shouldBe(visible)
+                .shouldHave(exactText(expectedError));
+    }
+
+    public void verifyCvvError(String expectedError) {
+        cvvError.shouldBe(visible)
+                .shouldHave(exactText(expectedError));
     }
 }

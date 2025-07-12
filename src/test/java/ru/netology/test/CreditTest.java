@@ -42,188 +42,188 @@ public class CreditTest {
     @Test
     @DisplayName("Buy by approved card")
     void shouldTestBuyWithApprovedCard() {
-        creditPage.fillingOutForm(DataHelper.getNumberApprovedCard());
-        creditPage.successNotification();
+        creditPage.fillForm(DataHelper.getNumberApprovedCard());
+        creditPage.verifySuccessNotification();
         assertEquals("APPROVED", SQLHelper.getStatusForCredit());
     }
 
     @Test
     @DisplayName("Buy by declined card")
     void shouldTestBuyWithDeclinedCard() {
-        creditPage.fillingOutForm(DataHelper.getNumberDeclinedCard());
-        creditPage.errorNotification();
+        creditPage.fillForm(DataHelper.getNumberDeclinedCard());
+        creditPage.verifyErrorNotification();
         assertEquals("DECLINED", SQLHelper.getStatusForCredit());
     }
 
     @Test
     @DisplayName("Empty card number field")
     void shouldTestEmptyCardNumberField() {
-        creditPage.fillingOutForm(DataHelper.getEmptyCardField());
-        creditPage.requiredField();
+        creditPage.fillForm(DataHelper.getEmptyCardField());
+        creditPage.verifyCardNumberError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("15 simbols in card number field")
     void shouldTestNumberLess16Digits() {
-        creditPage.fillingOutForm(DataHelper.getNumberless16digits());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getNumberless16digits());
+        creditPage.verifyCardNumberError("Неверный формат");
     }
 
     @Test
     @DisplayName("Random number card")
     void shouldTestRandomNumberCard() {
-        creditPage.fillingOutForm(DataHelper.getRandomNumber());
-        creditPage.errorNotification();
+        creditPage.fillForm(DataHelper.getRandomNumber());
+        creditPage.verifyErrorNotification();
     }
 
     @Test
     @DisplayName("Card Number '0000 0000 0000 0000'")
     void shouldTestZeroNumberCard() {
-        creditPage.fillingOutForm(DataHelper.getZeroNumber());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getZeroNumber());
+        creditPage.verifyCardNumberError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty month field")
     void shouldTestEmptyMonthField() {
-        creditPage.fillingOutForm(DataHelper.getEmptyMonthField());
-        creditPage.requiredField();
+        creditPage.fillForm(DataHelper.getEmptyMonthField());
+        creditPage.verifyMonthError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("Earlier month in month field")
     void shouldTestEarlierMonth() {
-        creditPage.fillingOutForm(DataHelper.getEarlierMonth());
-        creditPage.incorrectDeadline();
+        creditPage.fillForm(DataHelper.getEarlierMonth());
+        creditPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Next month in month field")
     void shouldTestNextMonth() {
-        creditPage.fillingOutForm(DataHelper.getNextMonth());
-        creditPage.successNotification();
+        creditPage.fillForm(DataHelper.getNextMonth());
+        creditPage.verifySuccessNotification();
     }
 
     @Test
     @DisplayName("'00' in month field")
     void shouldTestZeroMonth() {
-        creditPage.fillingOutForm(DataHelper.get00Month());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.get00Month());
+        creditPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("One Number in month field")
     void shouldTestOneNumInMonth() {
-        creditPage.fillingOutForm(DataHelper.getOneNumMonth());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getOneNumMonth());
+        creditPage.verifyMonthError("Неверный формат");
     }
 
     @Test
     @DisplayName("'13' in month field")
     void shouldTest13Month() {
-        creditPage.fillingOutForm(DataHelper.get13Month());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.get13Month());
+        creditPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Empty year field")
     void shouldTestEmptyYearField() {
-        creditPage.fillingOutForm(DataHelper.getEmptyYearField());
-        creditPage.requiredField();
+        creditPage.fillForm(DataHelper.getEmptyYearField());
+        creditPage.verifyYearError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("One simbol in year field")
     void shouldTestOneSimbolInYearField() {
-        creditPage.fillingOutForm(DataHelper.getOneSimbolInYearField());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getOneSimbolInYearField());
+        creditPage.verifyYearError("Неверный формат");
     }
 
     @Test
     @DisplayName("Earlier year in year field")
     void shouldTestEarlierYear() {
-        creditPage.fillingOutForm(DataHelper.getEarlierYear());
-        creditPage.deadlineIsOver();
+        creditPage.fillForm(DataHelper.getEarlierYear());
+        creditPage.verifyYearError("Истёк срок действия карты");
     }
 
     @Test
     @DisplayName("Last valid year in year field")
     void shouldTestLastValidYear() {
-        creditPage.fillingOutForm(DataHelper.getLstYear());
-        creditPage.successNotification();
+        creditPage.fillForm(DataHelper.getLstYear());
+        creditPage.verifySuccessNotification();
     }
 
     @Test
     @DisplayName("Over 6 year in year field")
     void shouldTestOverYear() {
-        creditPage.fillingOutForm(DataHelper.getOverYear());
-        creditPage.incorrectDeadline();
+        creditPage.fillForm(DataHelper.getOverYear());
+        creditPage.verifyYearError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Empty holder field")
     void shouldTestEmptyHolderField() {
-        creditPage.fillingOutForm(DataHelper.getEmptyHolderField());
-        creditPage.requiredField();
+        creditPage.fillForm(DataHelper.getEmptyHolderField());
+        creditPage.verifyHolderError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("One simbol in holder field")
     void shouldTestOneLetterInHolderField() {
-        creditPage.fillingOutForm(DataHelper.getOneLetter());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getOneLetter());
+        creditPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Rus name in holder field")
     void shouldTestRusHolderName() {
-        creditPage.fillingOutForm(DataHelper.getRusHolder());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getRusHolder());
+        creditPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Numbers in holder field")
     void shouldTestNumberInHolderField() {
-        creditPage.fillingOutForm(DataHelper.getNumberHolder());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getNumberHolder());
+        creditPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty CVC/CVV field")
     void shouldTestEmptyCVVField() {
-        creditPage.fillingOutForm(DataHelper.getEmptyCVVField());
-        creditPage.setRequiredFieldForCVVField();
+        creditPage.fillForm(DataHelper.getEmptyCVVField());
+        creditPage.verifyCvvError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("'000' in CVC/CVV field")
     void shouldTestZeroInCVVField() {
-        creditPage.fillingOutForm(DataHelper.getZeroCVV());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getZeroCVV());
+        creditPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("One simbol in CVC/CVV field")
     void shouldTestOneSimbolCVV() {
-        creditPage.fillingOutForm(DataHelper.getOneSimbolCVV());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getOneSimbolCVV());
+        creditPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("Letters in CVC/CVV field")
     void shouldTestLettersInCVVField() {
-        creditPage.fillingOutForm(DataHelper.getLettersCVV());
-        creditPage.invalidFormat();
+        creditPage.fillForm(DataHelper.getLettersCVV());
+        creditPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty form")
     void shouldTestEmptyForm() {
-        creditPage.fillingOutForm(DataHelper.getEmptyForm());
-        creditPage.setRequiredFieldForNumberCard();
-        creditPage.setRequiredFieldForMonthField();
-        creditPage.setRequiredFieldForYearField();
-        creditPage.setRequiredFieldForHolderField();
-        creditPage.setRequiredFieldForCVVField();
+        creditPage.fillForm(DataHelper.getEmptyForm());
+        creditPage.verifyCardNumberError("Поле обязательно для заполнения");
+        creditPage.verifyMonthError("Поле обязательно для заполнения");
+        creditPage.verifyYearError("Поле обязательно для заполнения");
+        creditPage.verifyHolderError("Поле обязательно для заполнения");
+        creditPage.verifyCvvError("Поле обязательно для заполнения");
     }
 }

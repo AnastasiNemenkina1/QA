@@ -42,188 +42,188 @@ public class DebitTest {
     @Test
     @DisplayName("Buy by approved card")
     void shouldTestBuyWithApprovedCard() {
-        debitPage.fillingOutForm(DataHelper.getNumberApprovedCard());
-        debitPage.successNotification();
+        debitPage.fillForm(DataHelper.getNumberApprovedCard());
+        debitPage.verifySuccessNotification();
         assertEquals("APPROVED", SQLHelper.getStatusForPayment());
     }
 
     @Test
     @DisplayName("Buy by declined card")
     void shouldTestBuyWithDeclinedCard() {
-        debitPage.fillingOutForm(DataHelper.getNumberDeclinedCard());
-        debitPage.errorNotification();
+        debitPage.fillForm(DataHelper.getNumberDeclinedCard());
+        debitPage.verifyErrorNotification();
         assertEquals("DECLINED", SQLHelper.getStatusForPayment());
     }
 
     @Test
     @DisplayName("Empty card number field")
     void shouldTestEmptyCardNumberField() {
-        debitPage.fillingOutForm(DataHelper.getEmptyCardField());
-        debitPage.requiredField();
+        debitPage.fillForm(DataHelper.getEmptyCardField());
+        debitPage.verifyCardNumberError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("15 simbols in card number field")
     void shouldTestNumberLess16Digits() {
-        debitPage.fillingOutForm(DataHelper.getNumberless16digits());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getNumberless16digits());
+        debitPage.verifyCardNumberError("Неверный формат");
     }
 
     @Test
     @DisplayName("Random number card")
     void shouldTestRandomNumberCard() {
-        debitPage.fillingOutForm(DataHelper.getRandomNumber());
-        debitPage.errorNotification();
+        debitPage.fillForm(DataHelper.getRandomNumber());
+        debitPage.verifyErrorNotification();
     }
 
     @Test
     @DisplayName("Card Number '0000 0000 0000 0000'")
     void shouldTestZeroNumberCard() {
-        debitPage.fillingOutForm(DataHelper.getZeroNumber());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getZeroNumber());
+        debitPage.verifyCardNumberError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty month field")
     void shouldTestEmptyMonthField() {
-        debitPage.fillingOutForm(DataHelper.getEmptyMonthField());
-        debitPage.requiredField();
+        debitPage.fillForm(DataHelper.getEmptyMonthField());
+        debitPage.verifyMonthError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("Earlier month in month field")
     void shouldTestEarlierMonth() {
-        debitPage.fillingOutForm(DataHelper.getEarlierMonth());
-        debitPage.incorrectDeadline();
+        debitPage.fillForm(DataHelper.getEarlierMonth());
+        debitPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Next month in month field")
     void shouldTestNextMonth() {
-        debitPage.fillingOutForm(DataHelper.getNextMonth());
-        debitPage.successNotification();
+        debitPage.fillForm(DataHelper.getNextMonth());
+        debitPage.verifySuccessNotification();
     }
 
     @Test
     @DisplayName("'00' in month field")
     void shouldTestZeroMonth() {
-        debitPage.fillingOutForm(DataHelper.get00Month());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.get00Month());
+        debitPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("One Number in month field")
     void shouldTestOneNumInMonth() {
-        debitPage.fillingOutForm(DataHelper.getOneNumMonth());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getOneNumMonth());
+        debitPage.verifyMonthError("Неверный формат");
     }
 
     @Test
     @DisplayName("'13' in month field")
     void shouldTest13Month() {
-        debitPage.fillingOutForm(DataHelper.get13Month());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.get13Month());
+        debitPage.verifyMonthError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Empty year field")
     void shouldTestEmptyYearField() {
-        debitPage.fillingOutForm(DataHelper.getEmptyYearField());
-        debitPage.requiredField();
+        debitPage.fillForm(DataHelper.getEmptyYearField());
+        debitPage.verifyYearError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("One simbol in year field")
     void shouldTestOneSimbolInYearField() {
-        debitPage.fillingOutForm(DataHelper.getOneSimbolInYearField());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getOneSimbolInYearField());
+        debitPage.verifyYearError("Неверный формат");
     }
 
     @Test
     @DisplayName("Earlier year in year field")
     void shouldTestEarlierYear() {
-        debitPage.fillingOutForm(DataHelper.getEarlierYear());
-        debitPage.deadlineIsOver();
+        debitPage.fillForm(DataHelper.getEarlierYear());
+        debitPage.verifyYearError("Истёк срок действия карты");
     }
 
     @Test
     @DisplayName("Last year in year field")
     void shouldTestLastValidYear() {
-        debitPage.fillingOutForm(DataHelper.getLstYear());
-        debitPage.successNotification();
+        debitPage.fillForm(DataHelper.getLstYear());
+        debitPage.verifySuccessNotification();
     }
 
     @Test
     @DisplayName("Over 6 year in year field")
     void shouldTestOverYear() {
-        debitPage.fillingOutForm(DataHelper.getOverYear());
-        debitPage.incorrectDeadline();
+        debitPage.fillForm(DataHelper.getOverYear());
+        debitPage.verifyYearError("Неверно указан срок действия карты");
     }
 
     @Test
     @DisplayName("Empty holder field")
     void shouldTestEmptyHolderField() {
-        debitPage.fillingOutForm(DataHelper.getEmptyHolderField());
-        debitPage.requiredField();
+        debitPage.fillForm(DataHelper.getEmptyHolderField());
+        debitPage.verifyHolderError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("One simbol in holder field")
     void shouldTestOneLetterInHolderField() {
-        debitPage.fillingOutForm(DataHelper.getOneLetter());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getOneLetter());
+        debitPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Rus name in holder field")
     void shouldTestRusHolderName() {
-        debitPage.fillingOutForm(DataHelper.getRusHolder());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getRusHolder());
+        debitPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Numbers in holder field")
     void shouldTestNumberInHolderField() {
-        debitPage.fillingOutForm(DataHelper.getNumberHolder());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getNumberHolder());
+        debitPage.verifyHolderError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty CVC/CVV field")
     void shouldTestEmptyCVVField() {
-        debitPage.fillingOutForm(DataHelper.getEmptyCVVField());
-        debitPage.setRequiredFieldForCVVField();
+        debitPage.fillForm(DataHelper.getEmptyCVVField());
+        debitPage.verifyCvvError("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("'000' in CVC/CVV field")
     void shouldTestZeroInCVVField() {
-        debitPage.fillingOutForm(DataHelper.getZeroCVV());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getZeroCVV());
+        debitPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("One simbol in CVC/CVV field")
     void shouldTestOneSimbolCVV() {
-        debitPage.fillingOutForm(DataHelper.getOneSimbolCVV());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getOneSimbolCVV());
+        debitPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("Letters in CVC/CVV field")
     void shouldTestLettersInCVVField() {
-        debitPage.fillingOutForm(DataHelper.getLettersCVV());
-        debitPage.invalidFormat();
+        debitPage.fillForm(DataHelper.getLettersCVV());
+        debitPage.verifyCvvError("Неверный формат");
     }
 
     @Test
     @DisplayName("Empty form")
     void shouldTestEmptyForm() {
-        debitPage.fillingOutForm(DataHelper.getEmptyForm());
-        debitPage.setRequiredFieldForNumberCard();
-        debitPage.setRequiredFieldForMonthField();
-        debitPage.setRequiredFieldForYearField();
-        debitPage.setRequiredFieldForHolderField();
-        debitPage.setRequiredFieldForCVVField();
+        debitPage.fillForm(DataHelper.getEmptyForm());
+        debitPage.verifyCardNumberError("Поле обязательно для заполнения");
+        debitPage.verifyMonthError("Поле обязательно для заполнения");
+        debitPage.verifyYearError("Поле обязательно для заполнения");
+        debitPage.verifyHolderError("Поле обязательно для заполнения");
+        debitPage.verifyCvvError("Поле обязательно для заполнения");
     }
 }
