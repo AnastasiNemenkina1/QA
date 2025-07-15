@@ -10,26 +10,32 @@ import java.sql.DriverManager;
 public class SQLHelper {
     private static final QueryRunner runner = new QueryRunner();
 
-    // Добавляем параметры по умолчанию
-    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/app";
+    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/app?useSSL=false&serverTimezone=UTC";
     private static final String DEFAULT_USER = "app";
     private static final String DEFAULT_PASS = "pass";
 
     private static String getUrl() {
-        return System.getProperty("db.url", DEFAULT_URL);
+        String url = System.getProperty("dblr1", DEFAULT_URL);
+        if (!url.contains("useSSL=")) {
+            url += (url.contains("?") ? "&" : "?") + "useSSL=false";
+        }
+        if (!url.contains("serverTimezone=")) {
+            url += "&serverTimezone=UTC";
+        }
+        return url;
     }
 
     private static String getUser() {
-        return System.getProperty("db.user", DEFAULT_USER);
+        return System.getProperty("dbuser", DEFAULT_USER);
     }
 
     private static String getPassword() {
-        return System.getProperty("db.pass", DEFAULT_PASS);
+        return System.getProperty("dbpassword", DEFAULT_PASS);
     }
 
     @SneakyThrows
     public static Connection getConn() {
-        // Регистрируем драйвер
+        // Регистрируем драйвер (для MySQL Connector/J 8.0+ это не обязательно, но для надежности)
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(getUrl(), getUser(), getPassword());
     }
@@ -64,7 +70,6 @@ public class SQLHelper {
         }
     }
 
-    // Добавляем метод для проверки подключения
     public static void testConnection() {
         try (var conn = getConn()) {
             if (!conn.isValid(1000)) {
