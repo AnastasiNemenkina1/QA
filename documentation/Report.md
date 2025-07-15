@@ -25,3 +25,29 @@
 3. Написание автотестов - прогноз: 28 мая-19 июня / факт: 26 мая-31 июня;
 4. Составление отчетов о тестировании - прогноз: 20-22 июня / факт: 31 июня;
 5. Исправление ошибок - прогноз: 20-22 июня / факт: ;
+
+## **Количество тест-кейсов**
+52 тест-кейса, из них:
+
+- 26 тест-кейсов на проверку покупки тура картой:
+3 позитивных;
+23 негативных.
+- 26 тест-кейсов на проверку покупки тура в кредит:
+3 позитивных;
+23 негативных.
+
+## **Процент успешности тест-кейсов**
+
+- Успешные тесты: 50%
+- Неуспешные тесты: 50%
+
+<img width="1111" height="525" alt="image" src="https://github.com/user-attachments/assets/03e2436a-09a1-45c7-9afe-502b7c7720af" />
+
+<img width="517" height="615" alt="image" src="https://github.com/user-attachments/assets/5eeb5878-31a7-46b2-8a1a-097bab78fc40" />
+
+<img width="780" height="727" alt="image" src="https://github.com/user-attachments/assets/bc7e60c5-6f50-49c0-affb-6ad91ca94173" />
+
+<img width="763" height="730" alt="image" src="https://github.com/user-attachments/assets/43fc8157-83e4-45ee-aa9c-bac1bfda19d3" />
+
+
+
