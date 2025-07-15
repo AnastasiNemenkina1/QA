@@ -41,7 +41,7 @@
 - Успешные тесты: 50%
 - Неуспешные тесты: 50%
 
-<img width="641" height="701" alt="image" src="https://github.com/user-attachments/assets/3d5fcbf5-982d-4996-bd3b-031ea8d77154" />
+<img width="1119" height="542" alt="image" src="https://github.com/user-attachments/assets/2d4a7312-5c91-46b2-9dfb-df4ec82a1d2f" />
 
 <img width="1297" height="512" alt="image" src="https://github.com/user-attachments/assets/947468bd-cf47-4765-b6c4-8860f709bb89" />
 
