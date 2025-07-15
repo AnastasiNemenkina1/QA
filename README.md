@@ -10,7 +10,7 @@
 # Документы
 1.  [Дипломное задание](https://github.com/netology-code/qa-diploma)
 2.  [План автоматизации](https://github.com/AnastasiNemenkina1/QA/blob/master/documentation/Plan.md)
-3. [Отчет по итогам тестирования](https://github.com/AnastasiNemenkina1/QA/blob/17892fef461fd826ba8f749095d6caeed9a95237/documentation/Report.md)
+3. [Отчет по итогам тестирования](https://github.com/AnastasiNemenkina1/QA/blob/master/documentation/Report.md)
 4. [Отчет по итогам автоматизации](https://github.com/AnastasiNemenkina1/QA/blob/17892fef461fd826ba8f749095d6caeed9a95237/documentation/Summary.md)
 # Подготовительный этап
 1. Запустить Docker Desktop
